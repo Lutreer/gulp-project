@@ -31,6 +31,11 @@ var paths = {
 	dist_fonts: 		'dist/fonts/',
 	dist_img: 			'dist/img/'
 };
+//help
+gulp.task('help',function () {
+	console.log('......gulp default......gulp参数说明==gulp help');
+	console.log('......gulp run......启动项目==gulp server');
+});
 
 //default task
 gulp.task('default',function(){
@@ -116,13 +121,6 @@ gulp.task('image',function(){
 		.pipe(reload({stream: true}));
 });
 
-//help
-gulp.task('help',function () {
-	console.log('	gulp default	gulp参数说明==gulp help');
-	console.log('	gulp run	    启动项目==gulp server');
-	console.log('	gulp help		gulp参数说明');
-	console.log('	gulp sass 		编译sass→css,autoprefixer');
-});
 
 
 
