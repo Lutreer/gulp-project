@@ -5,19 +5,21 @@
 var gulp 			= require('gulp'),
 	browserSync 	= require('browser-sync').create(),
 	reload      	= browserSync.reload,
-	copy 			= require('gulp-copy'),
 	sass 			= require('gulp-sass'),
 	cssmin 			= require('gulp-minify-css'),
 	autoprefixer 	= require('gulp-autoprefixer'),
 	useref		 	= require('gulp-useref'),
+	uglify		 	= require('gulp-uglify'),
 	concat 			= require('gulp-concat'),
 	clean 			= require('gulp-clean'),
-	flatten 		= require('gulp-flatten');
+	gulpif 			= require('gulp-if'),
+	htmlmin 		= require('gulp-html-minifier');
 
 var paths = {
 	app: 				'app/',
 	html: 				'app/**/*.html',
 	sass: 				['app/sass/**/*.scss','app/sass/**/*.css'],
+	css: 				'app/css/',
 	js_main: 			'app/js/main/**/*.js',
 	js_plugins: 		'app/js/plugins/**/*.js',
 	fonts: 				'app/fonts/**/*.*',
@@ -43,7 +45,8 @@ gulp.task('default',function(){
 });
 
 //run project
-gulp.task('run',['server']);
+gulp.task('run-p',['server-product']);
+gulp.task('run-d',['server-develope']);
 
 gulp.task('clean', function () {
     return gulp.src(paths.dist, {read: false})
@@ -51,70 +54,73 @@ gulp.task('clean', function () {
 });
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//静态服务器 + 监听 scss/html 文件
-gulp.task('server', ['clean', 'css-main', 'js-main', 'font', 'image', 'html'], function() {
+//静态服务器 + 监听 scss/html 文件(开发环境)
+gulp.task('server-develope', ['css'], function() {
     browserSync.init({
+    	//proxy: "localhost:8081"
+    	port: 8082,
+        server: paths.app
+    });
+
+    gulp.watch([paths.html,paths.js_main,paths.js_plugins,paths.fonts,paths.img,]).on('change', browserSync.reload);
+    gulp.watch(paths.sass, ['css']);
+});
+//静态服务器 + 监听 scss/html 文件(产品环境)
+gulp.task('server-product', ['clean', 'js-plugin', 'font', 'image', 'useref'], function() {
+    browserSync.init({
+    	port: 8081,
         server: paths.dist
     });
 
     gulp.watch(paths.html, ['html']);
-    gulp.watch(paths.sass, ['css-main']);
-    gulp.watch(paths.js_main, ['js-main']);
+    gulp.watch(paths.sass, ['css', 'useref']);
+    gulp.watch(paths.js_main, ['useref']);
     gulp.watch(paths.js_plugins, ['js_plugin']);
     gulp.watch(paths.fonts, ['font']);
     gulp.watch(paths.img, ['image']);
 });
 
-//替换合并的css js(暂时不执行)
-gulp.task('useref', ['html'], function () {  
-	var assets = useref.assets();  
+//替换合并的css js(pro)
+gulp.task('useref', ['html' ,'css'], function () {  
 	return gulp.src(paths.app + 'index.html')  
-		.pipe(assets)  
-		.pipe(assets.restore())  
-	    .pipe(useref())  
-	    .pipe(gulp.dest(paths.dist))  
-		.pipe(reload({stream: true}));
+    	.pipe(useref())
+    	.pipe(gulpif('*.js', uglify({mangle: false})))
+        .pipe(gulpif('*.css', cssmin()))
+        .pipe(gulpif('*.html', htmlmin({collapseWhitespace: true})))
+	    .pipe(gulp.dest(paths.dist));
 });
-//copy html to dist
+//copy html to dist(pro)
 gulp.task('html', function(){
 	return gulp.src(paths.html)
+		.pipe(htmlmin({collapseWhitespace: true}))
 		.pipe(gulp.dest(paths.dist_html))
 		.pipe(reload({stream: true}));
 });
 
 
-//sass→css,添加前缀，压缩，并注入到浏览器里实现更新
-gulp.task('css-main', function () {
-    return gulp.src(paths.sass)
+//sass→css,添加前缀，压缩，并注入到浏览器里实现更新(pro)
+gulp.task('css', function () {
+	return gulp.src(paths.sass)
         .pipe(sass())
         .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'Firefox >= 20', 'ios 7', 'android 4', '>5%'))
-        .pipe(cssmin())
-        .pipe(concat('main.min.css'))
-        .pipe(gulp.dest(paths.dist_css_main))
+        .pipe(gulp.dest(paths.css))
         .pipe(reload({stream: true}));
 });
 
-//concat JavaScript
-gulp.task('js-main', ['js-plugin'], function() {
-  return gulp.src(paths.js_main)
-		.pipe(concat('main.min.js'))
-	    .pipe(gulp.dest(paths.dist_js_main))
-	    .pipe(reload({stream: true}));
-});
-//copy js plugin
+//copy js plugin(pro)
 gulp.task('js-plugin', function() {
   return gulp.src(paths.js_plugins)
   		.pipe(gulp.dest(paths.dist_js_plugins))
 	    .pipe(reload({stream: true}));
 });
 
-//copy fonts
+//copy fonts(pro)
 gulp.task('font',function(){
 	return gulp.src(paths.fonts)
 		.pipe(gulp.dest(paths.dist_fonts))
 		.pipe(reload({stream: true}));
 });
-//copy images
+//copy images(pro)
 gulp.task('image',function(){
 	return gulp.src(paths.img)
 		.pipe(gulp.dest(paths.dist_img))

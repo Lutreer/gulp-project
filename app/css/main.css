@@ -1,0 +1,111 @@
+html {
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  font-size: 10px; }
+
+body {
+  width: 100%;
+  height: 100%;
+  font-size: 1.4rem;
+  font-family: Microsoft YaHei; }
+
+.clearfloat {
+  zoom: 1; }
+  .clearfloat:after {
+    display: block;
+    clear: both;
+    content: ''; }
+
+.view {
+  padding-top: 60px;
+  height: 100%;
+  width: 100%; }
+  .view .view-main {
+    height: 100%;
+    width: 100%;
+    overflow: auto; }
+
+.top-brand {
+  background-color: #3598db;
+  height: 60px;
+  width: 100%;
+  line-height: 60px;
+  padding: 0px 30px;
+  font-size: 1.8rem;
+  color: #fff;
+  position: fixed;
+  top: 0px;
+  left: 0px; }
+  .top-brand img {
+    margin-right: 5px; }
+
+.tuba-main {
+  height: 100%;
+  width: 100%; }
+  @media (min-width: 768px) {
+    .tuba-main .left-search {
+      height: 100%;
+      width: 20%;
+      float: left;
+      padding: 20px 20px; }
+      .tuba-main .left-search div:nth-of-type(1) {
+        margin-bottom: 40px; }
+        .tuba-main .left-search div:nth-of-type(1) div {
+          margin-top: 20px;
+          text-align: center; }
+          .tuba-main .left-search div:nth-of-type(1) div button:nth-of-type(1) {
+            margin: 2px 0px; }
+          .tuba-main .left-search div:nth-of-type(1) div button:nth-of-type(2) {
+            margin: 2px 0px; }
+      .tuba-main .left-search div:nth-of-type(2), .tuba-main .left-search div:nth-of-type(3) {
+        margin-bottom: 40px; }
+        .tuba-main .left-search div:nth-of-type(2) h5, .tuba-main .left-search div:nth-of-type(3) h5 {
+          font-size: 1.6rem;
+          font-stretch: bold;
+          margin-bottom: 20px; }
+        .tuba-main .left-search div:nth-of-type(2) div, .tuba-main .left-search div:nth-of-type(3) div {
+          margin-top: 20px;
+          text-align: center; }
+    .tuba-main .right-map {
+      height: 100%;
+      width: 80%;
+      float: right;
+      background-color: #000000; }
+      .tuba-main .right-map .map-content {
+        height: 100%;
+        width: 100%; } }
+  @media (max-width: 768px) {
+    .tuba-main .left-search {
+      height: 135px; }
+      .tuba-main .left-search > div {
+        width: 33.33%;
+        height: 100%;
+        float: left;
+        padding: 10px 5px;
+        border-right: 1px solid #EAEAEA; }
+      .tuba-main .left-search div:nth-of-type(1) div {
+        margin-top: 10px;
+        text-align: center; }
+        .tuba-main .left-search div:nth-of-type(1) div button {
+          margin: 2px 0px; }
+      .tuba-main .left-search div:nth-of-type(2) h5, .tuba-main .left-search div:nth-of-type(3) h5 {
+        font-size: 1.6rem;
+        font-stretch: bold;
+        margin-top: 0px;
+        margin-bottom: 10px; }
+      .tuba-main .left-search div:nth-of-type(2) div, .tuba-main .left-search div:nth-of-type(3) div {
+        margin-top: 20px;
+        text-align: center; }
+    .tuba-main .right-map {
+      height: 100%;
+      max-height: 600px;
+      background-color: #808080; }
+      .tuba-main .right-map .map-content {
+        height: 100%;
+        width: 100%; } }
+
+.my-error-alert {
+  position: absolute;
+  top: 70px;
+  left: 23%; }

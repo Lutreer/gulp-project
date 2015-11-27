@@ -1,22 +1,18 @@
 /**
- * Created by Lutreer on 15-10-20.
+ * Created by lixiang on 15-11-17.
  */
 'use strict';
-;var doweApp = angular.module('doweApp',['ui-router']);
+var ghtApp = angular.module('ngTubaApp',['ui.router', 'ngResource']);
 
-doweApp.config(function($stateProvider,$urlRouteProvider){
+ghtApp.config(function($stateProvider, $urlRouterProvider){
 
-	$urlRouteProvider.otherwise('/index');
+	$urlRouterProvider.otherwise('/index');
 
 	$stateProvider
 		.state('index',{
 			url:'/index',
-			template:'index  index   index'
-
-		})
-		.state('xxx',{
-			url:'/index',
-			template:'xxx xxx xxx xxx'
-		})
+			controller: 'tubaController',
+			templateUrl:'/templates/tuba.html'
+		});
 
 });

@@ -1,0 +1,97 @@
+<div class="tuba-main clearfloat">
+    <div class="left-search">
+        <div>
+            <input type="text" ng-model="baseStationNo" placeholder="基站号,例如:228,1,587,8" class="form-control">
+            <div>
+                <button ng-disabled="!baseStationNo" class="btn btn-warning" ng-click="searchTuba()">查图吧经纬度</button>
+                <button ng-disabled="!baseStationNo" class="btn btn-success" ng-click="searchLocal()">查本地数据库</button>
+            </div>
+        </div>
+
+        <div>
+            <h5>图吧数据</h5>
+            <input readonly type="text" ng-model="tubaData" class="form-control">
+            <div>
+                <button data-toggle="modal" data-target="#update-tuba" ng-disabled="!tubaData || !localData" class="btn btn-warning">同步图吧数据</button>
+            </div>
+        </div>
+        
+        <div>
+            <h5>本地数据</h5>
+            <input readonly type="text" ng-model="localData" class="form-control">
+            <div>
+                <button data-toggle="modal" data-target="#modify-local" ng-disabled="!localData" class="btn btn-success">手动修改</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="right-map">
+    <div class="map-content" id="baidu-map" baidu-map></div>
+    </div>
+</div>
+
+
+<!--alert Modal -->
+<div class="modal fade ardia" id="tubaErrorAlert" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">警告提示</h4>
+      </div>
+      <div class="modal-body">
+       {{errorInfoAlert}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--tuba Modal -->
+<div class="modal fade ardia" id="update-tuba" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">同步图吧数据</h4>
+      </div>
+      <div class="modal-body">
+       是否用图吧经纬度（{{tubaData}}）覆盖本地经纬度（{{localData}}）？
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button"  ng-click="updateTuba()" class="btn btn-primary">确定</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--modify Modal -->
+<div class="modal fade ardia" id="modify-local" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">手动修改本地数据</h4>
+      </div>
+      <div class="modal-body">
+        <h5>将基站号（{{searchBaseStationNo}}）对应的本地经纬度修改为：</h5>
+        <div class="form-group">
+          <label for="lon">经度：</label>
+          <input ng-model="diyLon" type="text" class="form-control" id="lon">
+        </div>
+         <div class="form-group">
+          <label for="lat">纬度：</label>
+          <input ng-model="diyLat" type="text" class="form-control" id="lat">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button ng-click="updateLocal()" ng-disabled="!diyLon || !diyLat" type="button" class="btn btn-primary">确定</button>
+      </div>
+    </div>
+  </div>
+</div>

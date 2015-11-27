@@ -1,40 +1,38 @@
 <!DOCTYPE html>
-<html lang="zh-CN" app="doweApp">
+<html lang="zh-CN"  ng-app="ngTubaApp">
 <head>
  	<meta charset="UTF-8">
-	<meta name="description" content="web,wechat,mobile"/>
+	<meta name="description"/>
 	<meta name="viewport" content="width=divece-width,initial-scale=1,user-scalable=no"/>
-  <title>首页</title>
+  <title>aaa</title>
 
 	<link href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
 	<link href="http://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
-	<!-- build:css css/main.min.css --><!-- endbuild -->  
-	<link rel="stylesheet" href="css/main.min.css">
-	  
+	<!-- build:css css/main.min.css -->
+	<link rel="stylesheet" href="css/main.css">
+	<!-- endbuild -->  
 </head>
 
-<body style="color:blue;">
-	<div class="container">
-		<div ui-view=""></div>
+<body>
+
+	<top-brand></top-brand>
+	<div class="view">
+		<div class="view-main" data-ui-view></div>
 	</div>
-gggggggggggggggggggggggggggffdddddddddddddd
 
-
-	
-
-
-
-
-
+	<script src="http://cdn.bootcss.com/angular.js/1.4.0/angular.min.js"></script>
 	<script src="http://cdn.bootcss.com/jquery/2.1.0/jquery.min.js"></script>
 	<script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-	<script src="http://cdn.bootcss.com/angular.js/1.4.0/angular.min.js"></script>
 	<script src="http://cdn.bootcss.com/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
-	<script src="http://cdn.bootcss.com/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
+	<script src="http://api.map.baidu.com/api?v=2.0&amp;ak=GRaPtLAZFqPgc6GrghXbQ3qG"></script>
+	<script src="js/plugins/angular-ui-router.js"></script>
 	<script src="js/plugins/angular-resource.min.js"></script>
-	<!-- load other plugins -->
-	<script src="js/plugins/other/1.js"></script>
-	<!-- build:js js/main/main.min.js --><!-- endbuild -->
-	<script src="js/main/main.min.js"></script>
+	<!-- build:js js/main/main.min.js -->
+	<script src="js/main/app.js"></script>	
+	<script src="js/main/directive.js"></script>	
+	<script src="js/main/view/home/homeController.js"></script>	
+	<script src="js/main/view/home/homeDirective.js"></script>	
+	<script src="js/main/view/home/homeService.js"></script>	
+	<!-- endbuild -->
 </body>
 </html>
