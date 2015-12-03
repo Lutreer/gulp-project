@@ -1,4 +1,3 @@
-[TOC]
 # 使用gulp管理项目
 
 ####gulpfile.js部分代码如下，可以查看项目中依赖的gulp 插件
