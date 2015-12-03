@@ -35,8 +35,14 @@ var paths = {
 };
 //help
 gulp.task('help',function () {
-	console.log('......gulp default......gulp参数说明==gulp help');
-	console.log('......gulp run......启动项目==gulp server');
+	console.log('');
+	console.log('-----------------------------------------------------------------');
+	console.log('......gulp default....本项目gulp任务说明，即gulp help');
+	console.log('......gulp run-p......启动产品环境项目，即gulp server-product');
+	console.log('......gulp run-d......启动开发环境项目，即gulp server-develope');
+	console.log('......gulp clean......清除gulp run-p编译的所有文件');
+	console.log('-----------------------------------------------------------------');
+	console.log('');
 });
 
 //default task
